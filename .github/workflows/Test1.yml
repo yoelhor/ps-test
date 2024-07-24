@@ -57,7 +57,7 @@ jobs:
           AppId: ${{ secrets.AppId }}
           AppSec: ${{ secrets.AppSec }}
         run: |
-          Write-Host $TenantId
-          Write-Host $AppId
+          Write-Host "$env:$TenantId"
+          Write-Host "$env:$AppId"
 
         
