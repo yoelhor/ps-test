@@ -57,7 +57,9 @@ jobs:
           AppId: ${{ secrets.AppId }}
           AppSec: ${{ secrets.AppSec }}
         run: |
-          Write-Host "$env:TenantId"
-          Write-Host "$env:AppId"
+          $SecuredPassword = ConvertTo-SecureString -String "$env:AppSec" -AsPlainText -Force
+          $ClientSecretCredential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "$env:AppId", $SecuredPassword
+          Connect-MgGraph -TenantId "$env:TenantId" -ClientSecretCredential $ClientSecretCredential
+          Get-MgUser -Property "id,displayName" -PageSize 5 | Format-Table DisplayName, Id
 
         
