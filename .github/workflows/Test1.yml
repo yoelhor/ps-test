@@ -43,10 +43,15 @@ jobs:
           AppId: ${{ secrets.AppId }}
           AppSec: ${{ secrets.AppSec }}
         run: |
+          Write-Host "Connect to Microsoft Entra ID"
           $SecuredPassword = ConvertTo-SecureString -String "$env:AppSec" -AsPlainText -Force
           $ClientSecretCredential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "$env:AppId", $SecuredPassword
           Connect-MgGraph -TenantId "$env:TenantId" -ClientSecretCredential $ClientSecretCredential -NoWelcome
+          
+          Write-Host "USERS:"
           Get-MgUser -Property "id,displayName" -PageSize 5 | Format-Table DisplayName, Id
+          
+          Write-Host "Disconnect from Microsoft Entra ID"
           Disconnect-MgGraph  | Out-Null
 
 
