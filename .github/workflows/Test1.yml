@@ -36,7 +36,7 @@ jobs:
           Install-Module Microsoft.Graph -Scope CurrentUser
 
       # Coonect
-      - name: Connect using OAuth 2.0 client credentials flow
+      - name: Connect run the code and disconnect
         shell: pwsh
         env:
           TenantId: ${{ secrets.TenantId }}
@@ -47,10 +47,7 @@ jobs:
           $ClientSecretCredential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "$env:AppId", $SecuredPassword
           Connect-MgGraph -TenantId "$env:TenantId" -ClientSecretCredential $ClientSecretCredential
           Get-MgUser -Property "id,displayName" -PageSize 5 | Format-Table DisplayName, Id
+          Disconnect-MgGraph
 
-      # Disconnect
-      - name: Disconnect
-        shell: pwsh
-        run: Disconnect-MgGraph
 
         
