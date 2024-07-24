@@ -27,7 +27,19 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
 
-      # Runs a set of commands using the runners shell
-      - name: Perform a Pester test from the command-line
+      # Run a command to check PowerShell version
+      - name: Check PowerShell version
         shell: pwsh
         run: Write-Host $PSVersionTable.PSVersion
+
+      # Run a command to install Microsoft Graph PowerShell (without cache)
+      - name: Check PowerShell version
+        shell: pwsh
+        run: |
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module Microsoft.Graph -Scope CurrentUser
+      
+      # Run a command to check the Graph PowerShell version
+      - name: Check PowerShell version
+        shell: pwsh
+        run: Get-InstalledModule Microsoft.Graph
