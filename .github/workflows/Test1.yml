@@ -48,4 +48,16 @@ jobs:
       - name: Try a command that does not need to run the Connect-MgGraph
         shell: pwsh
         run: Find-MgGraphCommand -command Get-MgUser
+
+      # Coonect
+      - name: Run the the Connect-MgGraph
+        shell: pwsh
+        env:
+          TenantId: ${{ secrets.TenantId }}
+          AppId: ${{ secrets.AppId }}
+          AppSec: ${{ secrets.AppSec }}
+        run: |
+          Write-Host $TenantId
+          Write-Host $AppId
+
         
