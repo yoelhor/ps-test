@@ -45,8 +45,7 @@ jobs:
           WebAppId: ${{ vars.WebAppId }}
         run: |
           Write-Host "Connect to Microsoft Entra ID"
-          Write-Host ${{ env.WebAppId }}
-          Write-Host "$vars:WebAppId"
+          Write-Host "Web applicaion IDL: $vars:WebAppId"
                     
           $SecuredPassword = ConvertTo-SecureString -String "$env:AppSec" -AsPlainText -Force
           $ClientSecretCredential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "$env:AppId", $SecuredPassword
