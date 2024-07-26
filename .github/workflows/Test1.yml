@@ -28,13 +28,6 @@ jobs:
         shell: pwsh
         run: Write-Host $PSVersionTable.PSVersion
 
-      # Run a command to install Microsoft Graph PowerShell (without cache)
-      - name: Install Microsoft Graph PowerShell | Out-Null
-        shell: pwsh
-        run: |
-          Set-PSRepository PSGallery -InstallationPolicy Trusted
-          Install-Module Microsoft.Graph -Scope CurrentUser
-
       # Coonect
       - name: Connect run the code and disconnect
         shell: pwsh
@@ -45,6 +38,9 @@ jobs:
           WebAppId: ${{ vars.WebAppId }}
         run: |
           Write-Host "Web application ID 1: " ${{ env.WebAppId }}
+
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module Microsoft.Graph -Scope CurrentUser
           
           #Get-ChildItem
 
