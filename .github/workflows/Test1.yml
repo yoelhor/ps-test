@@ -40,7 +40,7 @@ jobs:
           Write-Host "Web application ID 1: " ${{ env.WebAppId }}
 
           Set-PSRepository PSGallery -InstallationPolicy Trusted
-          Install-Module Microsoft.Graph -Scope CurrentUser
+          Install-Module Microsoft.Graph.Beta -Scope CurrentUser
           
           #Get-ChildItem
 
@@ -55,11 +55,8 @@ jobs:
 
           Import-Module Microsoft.Graph.Identity.SignIns
 
-          Write-Host "Get-InstalledModule Microsoft.Graph"
-          Get-InstalledModule Microsoft.Graph
-
           Write-Host "Get-InstalledModule"
-          Get-InstalledModule
+          Get-InstalledModule | Format-Table -Property Version, Name, Repository
 
           Write-Host "Get-MgBetaIdentityConditionalAccessPolicy"
           Get-MgBetaIdentityConditionalAccessPolicy
