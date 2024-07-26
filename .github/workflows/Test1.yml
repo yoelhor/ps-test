@@ -54,7 +54,9 @@ jobs:
           Write-Host "Connect to Microsoft Entra ID with app ID and app secret"
           $SecuredPassword = ConvertTo-SecureString -String "$env:AppSec" -AsPlainText -Force
           $ClientSecretCredential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "$env:AppId", $SecuredPassword
-          Connect-MgGraph -TenantId "$env:TenantId" -ClientSecretCredential $ClientSecretCredential -NoWelcome
+          
+          #Connect-MgGraph -TenantId "$env:TenantId" -ClientSecretCredential $ClientSecretCredential -NoWelcome
+          Connect-MgGraph -Identity -ClientId -TenantId "$env:TenantId" -ClientId "$env:AppId"
           
           Write-Host "Loading the PowerShell script .\ConditionalAccessPolicy.ps1"
           . .\ConditionalAccessPolicy.ps1
