@@ -28,6 +28,20 @@ jobs:
         shell: pwsh
         run: Write-Host $PSVersionTable.PSVersion
 
+      - name: Setup PowerShell module cache
+        id: cacher
+        uses: actions/cache@v3
+        with:
+          path: "~/.local/share/powershell/Modules"
+          key: ${{ runner.os }}-MicrosoftGraphBeta
+      
+      - name: Install required PowerShell modules
+        if: steps.cacher.outputs.cache-hit != 'true'
+        shell: pwsh
+        run: |
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module Microsoft.Graph.Beta -ErrorAction Stop
+          
       # Coonect
       - name: Connect, run the script and disconnect
         shell: pwsh
@@ -37,9 +51,6 @@ jobs:
           AppSec: ${{ secrets.AppSec }}
           WebAppId: ${{ vars.WebAppId }}
         run: |
-          Set-PSRepository PSGallery -InstallationPolicy Trusted
-          Install-Module Microsoft.Graph -Scope CurrentUser
-
           Write-Host "Connect to Microsoft Entra ID with app ID and app secret"
           $SecuredPassword = ConvertTo-SecureString -String "$env:AppSec" -AsPlainText -Force
           $ClientSecretCredential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "$env:AppId", $SecuredPassword
