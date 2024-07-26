@@ -37,10 +37,8 @@ jobs:
           AppSec: ${{ secrets.AppSec }}
           WebAppId: ${{ vars.WebAppId }}
         run: |
-          Write-Host "Web application ID 1: " ${{ env.WebAppId }}
-
           Set-PSRepository PSGallery -InstallationPolicy Trusted
-          Install-Module Microsoft.Graph.Beta -Scope CurrentUser
+          Install-Module Microsoft.Graph -Scope CurrentUser
 
           Write-Host "Connect to Microsoft Entra ID with app ID and app secret"
           $SecuredPassword = ConvertTo-SecureString -String "$env:AppSec" -AsPlainText -Force
@@ -50,7 +48,7 @@ jobs:
           Write-Host "Loading the PowerShell script .\ConditionalAccessPolicy.ps1"
           . .\ConditionalAccessPolicy.ps1
 
-          Write-Host "Runnin the PowerShell script"
+          Write-Host "Running the PowerShell script"
           Add-ConditionalAccessPolicy -PolicyName "Woodgrove demo - sign in risk" -AppId ${{ env.WebAppId }}
           
           Write-Host "Disconnect from Microsoft Entra ID"
