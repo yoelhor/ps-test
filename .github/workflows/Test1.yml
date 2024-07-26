@@ -57,6 +57,8 @@ jobs:
           Write-Host "USERS:"
           Get-MgUser -Property "id,displayName" -PageSize 5 | Format-Table DisplayName, Id
 
+          Import-Module Microsoft.Graph.Beta.Identity.SignIns
+          
           Write-Host "Loading the PowerShell script"
           . .\ConditionalAccessPolicy.ps1
 
