@@ -44,7 +44,9 @@ jobs:
           AppSec: ${{ secrets.AppSec }}
           WebAppId: ${{ vars.WebAppId }}
         run: |
-          Write-Host "Web applicaion IDL: $vars:WebAppId"
+          Write-Host "AAA"
+          Write-Host ${{ env.WebAppId }}
+          Write-Host "BBB"
           Write-Host "$vars:WebAppId"
           
           Write-Host "Connect to Microsoft Entra ID"
