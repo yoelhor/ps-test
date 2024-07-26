@@ -56,7 +56,7 @@ jobs:
           $ClientSecretCredential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "$env:AppId", $SecuredPassword
           
           #Connect-MgGraph -TenantId "$env:TenantId" -ClientSecretCredential $ClientSecretCredential -NoWelcome
-          Connect-MgGraph -Identity -ClientId -TenantId "$env:TenantId" -ClientId "$env:AppId"
+          Connect-MgGraph -Identity -ClientId "$env:AppId" -TenantId "$env:TenantId"
           
           Write-Host "Loading the PowerShell script .\ConditionalAccessPolicy.ps1"
           . .\ConditionalAccessPolicy.ps1
