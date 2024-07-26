@@ -65,7 +65,7 @@ jobs:
           . .\ConditionalAccessPolicy.ps1
 
           Write-Host "Runnin the PowerShell script"
-          Add-ConditionalAccessPolicy -PolicyName "Woodgrove demo - sign in risk" -AppId "a026b99a-851b-45b2-940f-c957d4b45731"
+          Add-ConditionalAccessPolicy -PolicyName "Woodgrove demo - sign in risk" -AppId ${{ env.WebAppId }}
           
           Write-Host "Disconnect from Microsoft Entra ID"
           Disconnect-MgGraph  | Out-Null
